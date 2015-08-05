@@ -53,6 +53,10 @@ gulp.task('bower', function() {
   return browserify(package.paths.app)
   .transform(reactify)
   .bundle()
+  .on('error', function (err) {
+            console.log(" Error in JSX transformation may be " +err);
+            this.emit('end');
+  })
   .pipe(source(package.dest.app))
   .pipe(gulp.dest(package.dest.dist));
 })
