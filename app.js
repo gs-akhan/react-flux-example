@@ -6,11 +6,13 @@ var Navbar = require("./components/Navbar.js");
 var Home = require("./components/Home.js");
 var About = require("./components/About.js");
 var noRoute = require("./components/404.js");
+var Services = require("./components/Services.js");
 var NotFoundRoute = ReactRouter.NotFoundRoute;
 var routes = (
   <Route > 
     <Route path="about" handler={About}/>
     <Route path="home" handler = {Home} />
+    <Route path="services" handler = {Services} />
     <DefaultRoute handler = {Home} />
     <NotFoundRoute handler = {noRoute} />
   </Route>
