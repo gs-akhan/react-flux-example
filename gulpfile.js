@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     cssmin = require('gulp-minify-css'),
     browserify = require('browserify'),
     uglify = require('gulp-uglify'),
+    babelify = require("babelify"),
     concat = require('gulp-concat'),
     jshint = require('gulp-jshint'),
     browserSync = require('browser-sync'),
@@ -11,6 +12,7 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     reactify = require('reactify'),
     package = require('./package.json'),
+    less = require('gulp-less'),
     reload = browserSync.reload;
 
 /**
@@ -37,7 +39,13 @@ gulp.task('bower', function() {
     }
   });
 })
-
+.task('styles', function(){
+  return gulp.src([package.paths.less])
+    .pipe(less({
+      paths : [package.paths.less]
+      }))
+    .pipe(gulp.dest('assets/css'))
+})
 
 /**
  * JSLint/JSHint validation
@@ -51,7 +59,7 @@ gulp.task('bower', function() {
 /** JavaScript compilation */
 .task('js', function() {
   return browserify(package.paths.app)
-  .transform(reactify)
+  .transform(babelify)
   .bundle()
   .on('error', function (err) {
             console.log(" Error in JSX transformation may be " +err);
@@ -62,7 +70,7 @@ gulp.task('bower', function() {
 })
 .task('js:min', function() {
   return browserify(package.paths.app)
-  .transform(reactify)
+  .transform(babelify)
   .bundle()
   .pipe(source(package.dest.app))
   .pipe(buffer())
@@ -74,7 +82,7 @@ gulp.task('bower', function() {
  * Compiling resources and serving application
   'lint', 'less'
  */
-.task('serve', ['clean', 'js', 'server'], function() {
+.task('serve', ['clean', 'styles', 'js', 'server'], function() {
   return gulp.watch([
     package.paths.app, package.paths.js, package.paths.jsx, package.paths.html, package.paths.less
   ], ['js', browserSync.reload

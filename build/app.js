@@ -1,45 +1,109 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var Hello = require("./components/Helloworld.js");
- 
-window.onload = function() {
-	React.render(React.createElement(Hello, {name: " Rajdeep "}), document.body);
-}
+"use strict";
 
-},{"./components/Helloworld.js":3}],2:[function(require,module,exports){
-var Greet = React.createClass({
-    displayName: 'Greet',
-    propTypes : {
-    	buttonText : React.PropTypes.string.isRequired
-   	},
-    render: function () {
-    	return (
-            React.createElement("div", null, "How do you do !! Man !!", 
-            React.createElement("button", {onClick: this.clickMe}, " ", this.props.buttonText)
-            )
-        );
-    },
-    clickMe : function() {
-    	alert("I am CS1.6");	
-    }
+var Route = ReactRouter.Route;
+var RouteHandler = ReactRouter.RouteHandler;
+var DefaultRoute = ReactRouter.DefaultRoute;
+var Navbar = require("./components/Navbar.js");
+var Home = require("./components/Home.js");
+var About = require("./components/About.js");
+var noRoute = require("./components/404.js");
+var NotFoundRoute = ReactRouter.NotFoundRoute;
+var routes = React.createElement(
+  Route,
+  null,
+  React.createElement(Route, { path: "about", handler: About }),
+  React.createElement(Route, { path: "home", handler: Home }),
+  React.createElement(DefaultRoute, { handler: Home }),
+  React.createElement(NotFoundRoute, { handler: noRoute })
+);
+window.onload = function () {
+  React.render(React.createElement(Navbar, null), document.getElementsByClassName("navbar")[0]);
+  ReactRouter.run(routes, ReactRouter.HashLocation, function (Component) {
+    React.render(React.createElement(Component, null), document.getElementsByClassName("app-container")[0]);
+  });
+};
+
+},{"./components/404.js":2,"./components/About.js":3,"./components/Home.js":4,"./components/Navbar.js":5}],2:[function(require,module,exports){
+"use strict";
+
+module.exports = React.createClass({
+	displayName: "exports",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			null,
+			"No route found : 404"
+		);
+	}
 });
 
-module.exports = Greet;
 },{}],3:[function(require,module,exports){
-var Greet = require("./Greet.js");
+"use strict";
 
+var About = React.createClass({
+    displayName: "About",
 
-var Hello = React.createClass({displayName: "Hello",
-    render: function() {
+    render: function render() {
         var buttonText = "Call of duty";
-        return (
-        		React.createElement("div", null, 
-        			React.createElement("div", null, "Hello ", this.props.name, " ", React.createElement(Greet, {buttonText: buttonText}))
-        			
-        		)
-        	) 
+        return React.createElement(
+            "div",
+            null,
+            "We are in About !!"
+        );
     }
-   
+
 });
 
-module.exports = Hello;
-},{"./Greet.js":2}]},{},[1])
+module.exports = About;
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
+var Home = React.createClass({
+    displayName: 'Greet',
+    propTypes: {
+        buttonText: React.PropTypes.string.isRequired
+    },
+    render: function render() {
+        return React.createElement(
+            'div',
+            null,
+            'We are in Home'
+        );
+    }
+});
+
+module.exports = Home;
+
+},{}],5:[function(require,module,exports){
+"use strict";
+
+module.exports = React.createClass({
+	displayName: "exports",
+
+	render: function render() {
+		return React.createElement(
+			"div",
+			null,
+			React.createElement(
+				"a",
+				{ href: "#/home" },
+				"Home"
+			),
+			React.createElement(
+				"a",
+				{ href: "#/about" },
+				"About"
+			),
+			React.createElement(
+				"a",
+				{ href: "#/services" },
+				"Services"
+			)
+		);
+	}
+});
+
+},{}]},{},[1])
