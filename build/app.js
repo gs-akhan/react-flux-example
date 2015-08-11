@@ -45,15 +45,27 @@ module.exports = React.createClass({
 "use strict";
 
 var About = React.createClass({
-    displayName: "About",
+  displayName: "About",
 
-    render: function render() {
-        return React.createElement(
-            "div",
-            null,
-            "We are in About !!"
-        );
-    }
+  getInitialState: function getInitialState() {
+    return { name: "azhar" };
+  },
+  updateState: function updateState(evt) {
+    this.setState({
+      name: React.findDOMNode(this.refs.input).value
+    });
+  },
+  render: function render() {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement("input", { type: "text", ref: "input", onKeyUp: this.updateState.bind(this) }),
+      React.createElement("br", null),
+      "We are in About ",
+      this.state.name,
+      "!!"
+    );
+  }
 
 });
 
