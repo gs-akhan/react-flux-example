@@ -1,12 +1,16 @@
 var Home = React.createClass({
-    displayName: 'Greet',
-    propTypes : {
-    	buttonText : React.PropTypes.string.isRequired
-   	},
+    getDefaultProps : function() {
+        return  {
+            currentStatus : "rajd"
+        };
+    },
+    updateState: function(evt){
+        this.props.currentStatus = React.findDOMNode(this.refs.statusInput).value;
+    },
     render: function () {
         return (
             <div>
-                We are in Home
+                <input ref="statusInput"></input><button onClick={this.updateState.bind(this)}>Update</button>
             </div>
         );
     }

@@ -4,7 +4,7 @@ module.exports  = React.createClass({
 				<div>
 					<a href = "#/home">Home</a>
 					<a href = "#/about">About</a>
-					<a href = "#/services">Services</a>
+					<a href = "#/services">Feed</a>
 				</div>
 			);	
 	}

@@ -1,6 +1,6 @@
 var About = React.createClass({
 	getInitialState : function() {
-		return  {name : "azhar"};
+		return  {name : ""};
 	},
 	updateState : function(evt) {
 		this.setState({
@@ -12,7 +12,7 @@ var About = React.createClass({
         		<div>
         			<input type = "text" ref = "input" onKeyUp = {this.updateState.bind(this)} />	
         			<br />
-        			We are in About {this.state.name}!!
+        			{this.state.name}
         		</div>
         	) 
     }
