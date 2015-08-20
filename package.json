@@ -28,8 +28,8 @@
   },
   "paths": {
     "less": "assets/less/*.less",
-    "js": "./components/*.js",
-    "jsx": "./components/*.jsx",
+    "js": "./components/**/*.js",
+    "jsx": "./components/**/*.jsx",
     "app": "./app.js",
     "html": "*.html"
   },

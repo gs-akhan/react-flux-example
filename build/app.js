@@ -195,7 +195,6 @@ var Actions = mcFly.createActions({
         };
     }
 });
-
 module.exports = Actions;
 
 },{"./McFly.js":8}],8:[function(require,module,exports){
@@ -222,6 +221,7 @@ var Store = mcFly.createStore({
 	if (payload.actionType === "ADD") {
 		addItem(payload.data);
 	}
+
 	Store.emitChange();
 	return true;
 });

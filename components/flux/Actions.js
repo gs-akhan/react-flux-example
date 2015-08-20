@@ -7,5 +7,4 @@ var Actions = mcFly.createActions({
         }
     }
 });
-
 module.exports = Actions;
