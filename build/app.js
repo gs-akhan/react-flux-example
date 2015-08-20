@@ -72,18 +72,35 @@ module.exports = About;
 },{}],4:[function(require,module,exports){
 "use strict";
 
+var Actions = require("./flux/Actions");
+var Store = require("./flux/Store");
 var Home = React.createClass({
     displayName: "Home",
 
-    getDefaultProps: function getDefaultProps() {
+    mixins: [Store.mixin],
+    getInitialState: function getInitialState() {
         return {
-            currentStatus: "rajd"
+            items: Store.getItems()
         };
     },
     updateState: function updateState(evt) {
-        this.props.currentStatus = React.findDOMNode(this.refs.statusInput).value;
+        Actions.addItem(React.findDOMNode(this.refs.statusInput).value);
+        React.findDOMNode(this.refs.statusInput).value = "";
+    },
+    onChange: function onChange() {
+        this.setState({
+            items: Store.getItems()
+        });
     },
     render: function render() {
+        var lis = this.state.items.map(function (item) {
+            return React.createElement(
+                "div",
+                null,
+                item
+            );
+        });
+
         return React.createElement(
             "div",
             null,
@@ -92,14 +109,15 @@ var Home = React.createClass({
                 "button",
                 { onClick: this.updateState.bind(this) },
                 "Update"
-            )
+            ),
+            lis
         );
     }
 });
 
 module.exports = Home;
 
-},{}],5:[function(require,module,exports){
+},{"./flux/Actions":7,"./flux/Store":9}],5:[function(require,module,exports){
 "use strict";
 
 module.exports = React.createClass({
@@ -132,14 +150,82 @@ module.exports = React.createClass({
 "use strict";
 
 var Status = require("./About.js");
+var Store = require("./flux/Store");
 var Services = React.createClass({
-    displayName: "Services",
+	displayName: "Services",
 
-    render: function render() {
-        return React.createElement("div", null);
-    }
+	mixins: [Store.mixin],
+	getInitialState: function getInitialState() {
+		return {
+			items: Store.getItems()
+		};
+	},
+	onChange: function onChange() {
+		this.setState({
+			items: Store.getItems()
+		});
+	},
+	render: function render() {
+		var lis = this.state.items.map(function (item) {
+			return React.createElement(
+				"div",
+				null,
+				item
+			);
+		});
+		return React.createElement(
+			"div",
+			null,
+			lis
+		);
+	}
 
 });
 module.exports = Services;
 
-},{"./About.js":3}]},{},[1])
+},{"./About.js":3,"./flux/Store":9}],7:[function(require,module,exports){
+"use strict";
+
+var mcFly = require("./McFly.js");
+var Actions = mcFly.createActions({
+    addItem: function addItem(item) {
+        return {
+            actionType: "ADD",
+            data: item
+        };
+    }
+});
+
+module.exports = Actions;
+
+},{"./McFly.js":8}],8:[function(require,module,exports){
+"use strict";
+
+module.exports = new McFly();
+
+},{}],9:[function(require,module,exports){
+"use strict";
+
+var mcFly = require("./McFly.js");
+var items = [];
+
+function addItem(item) {
+	items.push(item);
+}
+
+var Store = mcFly.createStore({
+	getItems: function getItems() {
+		return items;
+	}
+}, function (payload) {
+
+	if (payload.actionType === "ADD") {
+		addItem(payload.data);
+	}
+	Store.emitChange();
+	return true;
+});
+
+module.exports = Store;
+
+},{"./McFly.js":8}]},{},[1])
