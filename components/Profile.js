@@ -1,3 +1,4 @@
+var React = require('react');
 var Status = require("./Home.js");
 var Feeds = React.createClass({
     className: "list",

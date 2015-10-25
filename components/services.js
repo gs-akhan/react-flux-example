@@ -1,3 +1,4 @@
+var React = require('react');
 var Status = require("./About.js");
 var Store = require("./flux/Store");
 var Services = React.createClass({
@@ -13,8 +14,8 @@ var Services = React.createClass({
 		})
 	},
     render: function() {
-    	var lis = this.state.items.map(function(item) {
-            return (<div>{item}</div>);
+    	var lis = this.state.items.map(function(item,iter) {
+            return (<div key = {iter}>{item}</div>);
         });
     	return (<div>
     		{lis}

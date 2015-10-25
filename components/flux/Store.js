@@ -5,7 +5,6 @@ function addItem(item) {
 	items.push(item);
 }
 
-
 var Store = mcFly.createStore({
 	getItems : function() {
 		return items;
@@ -19,6 +18,5 @@ var Store = mcFly.createStore({
 	Store.emitChange();
 	return true;
 });
-
 module.exports = Store;
 
