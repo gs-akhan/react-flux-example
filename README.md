@@ -19,3 +19,8 @@ npm install
 ```
 gulp serve
 ```
+4. To execute tests :
+
+```
+npm test
+```
