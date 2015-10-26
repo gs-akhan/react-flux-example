@@ -10,7 +10,6 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
-    reactify = require('reactify'),
     package = require('./package.json'),
     less = require('gulp-less'),
     reload = browserSync.reload;

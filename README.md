@@ -1,25 +1,27 @@
+[![Build Status](https://travis-ci.org/gs-akhan/react-flux-example.svg?branch=master)](https://travis-ci.org/gs-akhan/react-flux-example)
+
 # react-flux-example
 Purely for learning purpose, Uses McFly Flux solution
 
 
 ### How to run
 
-1. Make sure gulp is installed globbaly, if not :
+Make sure gulp is installed globbaly, if not :
 ```
 npm install gulp -g
 ```
 
-2. To install all dependecies :
+To install all dependecies :
 ```
 npm install
 ```
 
-3. To run the app :
+To run the app :
 
 ```
 gulp serve
 ```
-4. To execute tests :
+To execute tests :
 
 ```
 npm test
